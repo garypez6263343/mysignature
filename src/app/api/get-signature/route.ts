@@ -19,24 +19,31 @@ export async function GET(req: NextRequest) {
   if (!data || !data.signature)
     return NextResponse.json({ html: '' }, { status: 404 });
 
-  // 把签名对象渲染成最终 HTML
-  const html = renderHtml(data.signature);
+  const html = renderHtml(data.signature as Record<string, unknown>);
   return NextResponse.json({ html });
 }
 
 function renderHtml(sig: Record<string, unknown>) {
-  // 只演示用 Template01 骨架，后期可换
+  const email    = String(sig.email    ?? '');
+  const phone    = String(sig.phone    ?? '');
+  const website  = String(sig.website  ?? '');
+  const photoURL = String(sig.photoURL ?? '');
+  const firstName = String(sig.firstName ?? '');
+  const lastName = String(sig.lastName ?? '');
+  const jobTitle = String(sig.jobTitle ?? '');
+  const company  = String(sig.company  ?? '');
+
   return `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#202124">
     <tr>
       <td style="padding-right:12px;vertical-align:top">
-        <img src="${sig.photoURL || 'https://i.pravatar.cc/80?u=default'}" width="80" height="80" style="border-radius:50%"/>
+        <img src="${photoURL || 'https://i.pravatar.cc/80?u=default'}" width="80" height="80" style="border-radius:50%"/>
       </td>
       <td style="vertical-align:top">
-        <strong>${sig.firstName} ${sig.lastName}</strong><br/>
-        <span style="color:#5f6368">${sig.jobTitle} · ${sig.company}</span><br/>
-        <a href="mailto:${sig.email}" style="color:#1a73e8">${sig.email}</a>
-        ${sig.phone ? ` · <a href="tel:${sig.phone}" style="color:#1a73e8">${sig.phone}</a>` : ''}
-        <br/><a href="${sig.website}" target="_blank" rel="noopener noreferrer" style="color:#1a73e8">${sig.website.replace(/^https?:\/\//, '')}</a>
+        <strong>${firstName} ${lastName}</strong><br/>
+        <span style="color:#5f6368">${jobTitle} · ${company}</span><br/>
+        <a href="mailto:${email}" style="color:#1a73e8">${email}</a>
+        ${phone ? ` · <a href="tel:${phone}" style="color:#1a73e8">${phone}</a>` : ''}
+        <br/><a href="${website}" target="_blank" rel="noopener noreferrer" style="color:#1a73e8">${website.replace(/^https?:\/\//, '')}</a>
       </td>
     </tr>
   </table>`;
