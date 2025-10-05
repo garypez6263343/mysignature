@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ html });
 }
 
-function renderHtml(sig: any) {
+function renderHtml(sig: Record<string, unknown>) {
   // 只演示用 Template01 骨架，后期可换
   return `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#202124">
     <tr>
