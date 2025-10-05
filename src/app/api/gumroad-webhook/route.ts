@@ -7,7 +7,8 @@ const supabase = createClient(
 );
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const formData = await req.formData();
+  const body = Object.fromEntries(formData.entries());
   // Gumroad Ping 字段名
   const email = body.email;
   const subscription_ended_at = body.subscription_ended_at; // 为空表示正在付费
