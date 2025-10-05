@@ -20,4 +20,5 @@ export default function Home() {
       <Template01 {...fakeData} />
     </div>
   );
+
 }
