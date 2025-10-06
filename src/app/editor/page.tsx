@@ -1,23 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { useState, useSearchParams } from 'react';
 import Template01 from '@/templates/Template01';
 
 export default function Editor() {
+  const search = useSearchParams();
+  const templateId = Number(search.get('templateId')) || 1;          // ← 读模板 ID
+  const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
+  const bgColor = colors[templateId - 1] || '#e8f0fe';               // ← 背景变色
+
   const [form, setForm] = useState({
-  firstName: ' ',
-  lastName: ' ',
-  jobTitle: ' ',
-  company: ' ',
-  email: ' ',
-  phone: ' ',
-  website: '',              // 空
-  photoURL: '',             // 空，用模板默认图
-  linkedInURL: '',          // 空
-  twitterURL: '',           // 空
-});
+    firstName: ' ',
+    lastName: ' ',
+    jobTitle: ' ',
+    company: ' ',
+    email: ' ',
+    phone: ' ',
+    website: '',
+    photoURL: '',
+    linkedInURL: '',
+    twitterURL: '',
+  });
+
+  // 生成最终 HTML
+  const html = `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#202124;background:${bgColor}">
+    <tr>
+      <td style="padding-right:12px;vertical-align:top">
+        <img src="${form.photoURL || 'https://i.pravatar.cc/80?u=default'}" width="80" height="80" style="border-radius:50%"/>
+      </td>
+      <td style="vertical-align:top">
+        <strong>${form.firstName} ${form.lastName}</strong><br/>
+        <span style="color:#5f6368">${form.jobTitle} · ${form.company}</span><br/>
+        <a href="mailto:${form.email}" style="color:#1a73e8">${form.email}</a>
+        ${form.phone ? ` · <a href="tel:${form.phone.replace(/\s/g, '')}" style="color:#1a73e8">${form.phone}</a>` : ''}
+        <br/><a href="${form.website}" target="_blank" rel="noopener noreferrer" style="color:#1a73e8">${form.website.replace(/^https?:\/\//, '')}</a>
+      </td>
+    </tr>
+  </table>`;
 
   return (
-    <div style={{ display: 'flex', gap: 40, padding: 40 }}>
+    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>   {/* ← 背景变色 */}
       {/* 左：表单 */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
@@ -34,6 +55,7 @@ export default function Editor() {
         <button
           style={{ marginTop: 16, padding: '8px 16px', fontSize: 16 }}
           onClick={async () => {
+            localStorage.setItem('signatureHTML', html);                      // ← 存真实 HTML
             const res = await fetch('/api/save-user', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
