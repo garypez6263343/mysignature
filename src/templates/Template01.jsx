@@ -38,16 +38,16 @@ export default function Template01({
               </a>
             </span>
 
-            {/* 社交图标 */}
+            {/* 社交图标 - 稳定 CDN + X 品牌 */}
             <span style={{ display: 'block', marginTop: 8 }}>
               {linkedInURL && (
                 <a href={linkedInURL} target="_blank" rel="noopener noreferrer" style={{ marginRight: 6 }}>
-                  <img src="https://cdn.simpleicons.org/linkedin/0077B5" alt="LinkedIn" width="16" height="16" />
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="16" height="16" style={{ fill: '#0077B5' }} />
                 </a>
               )}
               {twitterURL && (
                 <a href={twitterURL} target="_blank" rel="noopener noreferrer">
-                  <img src="https://cdn.simpleicons.org/twitter/1DA1F2" alt="Twitter" width="16" height="16" />
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="16" height="16" style={{ fill: '#000' }} />
                 </a>
               )}
             </span>

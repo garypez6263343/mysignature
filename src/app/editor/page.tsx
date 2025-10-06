@@ -1,7 +1,31 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-// 1. 动态导入模板（01-05）
+// 上传组件
+function ImgbbUpload({ onUpload }: { onUpload: (url: string) => void }) {
+  const [loading, setLoading] = useState(false);
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLoading(true);
+    const body = new FormData();
+    body.append('image', file);
+    body.append('key', '8d0b10e79f4462558c6141db43090bad');
+    const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body });
+    const json = await res.json();
+    setLoading(false);
+    if (json.success) onUpload(json.data.url);
+    else alert('Upload failed');
+  };
+  return (
+    <div style={{ marginTop: 4 }}>
+      <input type="file" accept="image/*" onChange={handleFile} disabled={loading} />
+      {loading && <span> Uploading…</span>}
+    </div>
+  );
+}
+
+// 动态导入模板
 const loadTemplate = (id: number) =>
   import(`@/templates/Template${String(id).padStart(2, '0')}.jsx`)
     .then((m) => m.default)
@@ -18,8 +42,6 @@ export default function Editor() {
     const colors = ['#e8f0fe', '#fce8e6', '#e6f4ea', '#e2e3e5', '#fff3cd'];
     setTemplateId(id);
     setBgColor(colors[id - 1] || '#e8f0fe');
-
-    // 2. 模板切换时重新加载组件
     loadTemplate(id).then((T) => setTemplate(() => T));
   }, [templateId]);
 
@@ -36,7 +58,6 @@ export default function Editor() {
     twitterURL: '',
   });
 
-  // 3. 生成最终 HTML（字强制纯黑）
   const html = `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#000;background:${bgColor}">
     <tr>
       <td style="padding-right:12px;vertical-align:top">
@@ -65,6 +86,8 @@ export default function Editor() {
               value={form[k as keyof typeof form]}
               onChange={(e) => setForm({ ...form, [k]: e.target.value })}
             />
+            {/* 图片上传仅对 photoURL 字段生效 */}
+            {k === 'photoURL' && <ImgbbUpload onUpload={(url) => setForm({ ...form, photoURL: url })} />}
           </div>
         ))}
         <button
@@ -93,7 +116,6 @@ export default function Editor() {
       {/* 右：实时预览 */}
       <div style={{ flex: 1 }}>
         <h2>Live Preview</h2>
-        {/* 4. 真正渲染对应模板，字变黑由模板内部再补一次 color:#000 即可 */}
         {Template ? <Template {...form} /> : <div>Loading template…</div>}
       </div>
     </div>
