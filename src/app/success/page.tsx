@@ -16,4 +16,5 @@ export default function Success() {
       <p style={{ marginTop: 24 }}>Paste it into Gmail/Outlook settings → Save.</p>
     </div>
   );
+  
 }
