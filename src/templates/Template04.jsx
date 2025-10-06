@@ -38,16 +38,20 @@ export default function Template04({
               </a>
             </span>
 
-            {/* Social icons - stable CDN + X brand */}
+            {/* Social icons - visible on any background */}
             <span style={{ display: 'block', marginTop: 8 }}>
               {linkedInURL && (
                 <a href={linkedInURL} target="_blank" rel="noopener noreferrer" style={{ marginRight: 6 }}>
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="16" height="16" style={{ fill: '#0077B5' }} />
+                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#0077B5' }} />
+                  </span>
                 </a>
               )}
               {twitterURL && (
                 <a href={twitterURL} target="_blank" rel="noopener noreferrer">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="16" height="16" style={{ fill: '#000' }} />
+                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#000' }} />
+                  </span>
                 </a>
               )}
             </span>

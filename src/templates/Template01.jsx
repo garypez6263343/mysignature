@@ -6,7 +6,7 @@ export default function Template01({
     <table cellPadding="0" cellSpacing="0" style={{ fontFamily: 'Arial, sans-serif', fontSize: '14px', color: '#202124' }}>
       <tbody>
         <tr>
-          {/* 头像 */}
+          {/* Avatar */}
           <td style={{ paddingRight: 12, verticalAlign: 'top' }}>
             <img
               src={photoURL || 'https://i.pravatar.cc/80?u=default'}
@@ -17,7 +17,7 @@ export default function Template01({
             />
           </td>
 
-          {/* 信息区 */}
+          {/* Info block */}
           <td style={{ verticalAlign: 'top' }}>
             <strong style={{ fontSize: '16px', lineHeight: 1.2 }}>{firstName} {lastName}</strong>
             <span style={{ display: 'block', color: '#5f6368', lineHeight: 1.3, marginTop: 2 }}>
@@ -38,28 +38,32 @@ export default function Template01({
               </a>
             </span>
 
-            {/* 社交图标 - 稳定 CDN + X 品牌 */}
+            {/* Social icons - visible on any background */}
             <span style={{ display: 'block', marginTop: 8 }}>
               {linkedInURL && (
                 <a href={linkedInURL} target="_blank" rel="noopener noreferrer" style={{ marginRight: 6 }}>
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="16" height="16" style={{ fill: '#0077B5' }} />
+                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#0077B5' }} />
+                  </span>
                 </a>
               )}
               {twitterURL && (
                 <a href={twitterURL} target="_blank" rel="noopener noreferrer">
-                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="16" height="16" style={{ fill: '#000' }} />
+                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#000' }} />
+                  </span>
                 </a>
               )}
             </span>
           </td>
         </tr>
 
-        {/* 分隔线 */}
+        {/* Divider */}
         <tr>
           <td colSpan={2} style={{ paddingTop: 12, height: 1, backgroundColor: '#dadce0', fontSize: 0 }}>&nbsp;</td>
         </tr>
 
-        {/* 免责 */}
+        {/* Disclaimer */}
         <tr>
           <td colSpan={2} style={{ paddingTop: 8, fontSize: '11px', color: '#80868b' }}>
             This email and any attachments are confidential and may be legally privileged.
