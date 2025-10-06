@@ -5,7 +5,7 @@ import Template01 from '@/templates/Template01';
 
 export default function Editor() {
   const search = useSearchParams();
-  const templateId = Number(search.get('templateId')) || 1;
+  const templateId = Number(search?.get('templateId')) || 1;   // ← 加 ?. 延迟读
   const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
   const bgColor = colors[templateId - 1] || '#e8f0fe';
 
@@ -39,7 +39,7 @@ export default function Editor() {
   </table>`;
 
   return (
-    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>
+    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>   {/* ← 背景变色 */}
       {/* 左：表单 */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
