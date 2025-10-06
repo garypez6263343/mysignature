@@ -3,7 +3,9 @@ export default function Home() {
     <main style={{ fontFamily: 'Arial', padding: 40, background: '#f8f9fa' }}>
       <h1 style={{ fontSize: 48, color: '#000' }}>Professional Email Signature Generator</h1>
       <p style={{ fontSize: 20, color: '#000' }}>Free, no login, copy-paste ready in 30 seconds.</p>
-      <a href="/editor" style={{ display: 'inline-block', marginTop: 24, padding: '12px 24px', background: '#1a73e8', color: '#fff', borderRadius: 4, textDecoration: 'none' }}>Create My Signature</a>
+
+      {/* 关键改动：href 指向 templates 页 */}
+      <a href="/templates" style={{ display: 'inline-block', marginTop: 24, padding: '12px 24px', background: '#1a73e8', color: '#fff', borderRadius: 4, textDecoration: 'none' }}>Create My Signature</a>
 
       <section style={{ marginTop: 60 }}>
         <h2 style={{ color: '#000' }}>Pick a Template</h2>
