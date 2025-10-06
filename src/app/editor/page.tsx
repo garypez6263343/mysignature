@@ -45,7 +45,7 @@ export default function Editor() {
   </table>`;
 
   return (
-    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>
+    <div style={{ display: 'flex', gap: 40, padding: 40 }}>   {/* ← 只改签名栏背景，不改整页 */}
       {/* 左：表单 */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
@@ -72,7 +72,7 @@ export default function Editor() {
             if (json.error) return alert(json.error);
             alert('User saved! ID: ' + json.userId);
             window.open(
-              'https://lopezian316.gumroad.com/l/awhtj?email=' +
+              'https://lopezian316.gumroad.com/l/awhtj?email= ' +
                 encodeURIComponent(form.email),
               '_blank'
             );
