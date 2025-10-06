@@ -10,7 +10,7 @@ const loadTemplate = (id: number) =>
 export default function Editor() {
   const [templateId, setTemplateId] = useState(1);
   const [bgColor, setBgColor] = useState('#e8f0fe');
-  const [Template, setTemplate] = useState<any>(null);
+  const [Template, setTemplate] = useState<React.FC<typeof form> | null>(null);
 
   useEffect(() => {
     const url = new URL(window.location.href);
