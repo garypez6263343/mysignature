@@ -1,13 +1,19 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Template01 from '@/templates/Template01';
 
 export default function Editor() {
-  // 用原生 JS 读 URL 参数
-  const url = new URL(window.location.href);
-  const templateId = Number(url.searchParams.get('templateId')) || 1;
-  const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
-  const bgColor = colors[templateId - 1] || '#e8f0fe';
+  const [templateId, setTemplateId] = useState(1);
+  const [bgColor, setBgColor] = useState('#e8f0fe');
+
+  useEffect(() => {
+    // 只在客户端读 window.location
+    const url = new URL(window.location.href);
+    const id = Number(url.searchParams.get('templateId')) || 1;
+    const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
+    setTemplateId(id);
+    setBgColor(colors[id - 1] || '#e8f0fe');
+  }, []);
 
   const [form, setForm] = useState({
     firstName: ' ',
@@ -39,7 +45,7 @@ export default function Editor() {
   </table>`;
 
   return (
-    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>   {/* ← 背景变色 */}
+    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>
       {/* 左：表单 */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
