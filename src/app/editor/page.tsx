@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Template01 from '@/templates/Template01';
 
 export default function Editor() {
-  const search = useSearchParams();
-  const templateId = Number(search?.get('templateId')) || 1;   // ← 加 ?. 延迟读
+  // 用原生 JS 读 URL 参数
+  const url = new URL(window.location.href);
+  const templateId = Number(url.searchParams.get('templateId')) || 1;
   const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
   const bgColor = colors[templateId - 1] || '#e8f0fe';
 
