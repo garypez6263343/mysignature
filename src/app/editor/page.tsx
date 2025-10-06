@@ -39,7 +39,7 @@ export default function Editor() {
   </table>`;
 
   return (
-    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>   {/* ← 背景变色 */}
+    <div style={{ display: 'flex', gap: 40, padding: 40, background: bgColor }}>
       {/* 左：表单 */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
@@ -56,7 +56,7 @@ export default function Editor() {
         <button
           style={{ marginTop: 16, padding: '8px 16px', fontSize: 16 }}
           onClick={async () => {
-            localStorage.setItem('signatureHTML', html);                      // ← 存真实 HTML
+            localStorage.setItem('signatureHTML', html);
             const res = await fetch('/api/save-user', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
