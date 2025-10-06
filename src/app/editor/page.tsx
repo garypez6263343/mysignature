@@ -1,5 +1,6 @@
 'use client';
-import { useState, useSearchParams } from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Template01 from '@/templates/Template01';
 
 export default function Editor() {
