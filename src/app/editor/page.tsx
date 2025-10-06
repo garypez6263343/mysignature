@@ -5,9 +5,9 @@ import Template01 from '@/templates/Template01';
 
 export default function Editor() {
   const search = useSearchParams();
-  const templateId = Number(search.get('templateId')) || 1;          // ← 读模板 ID
+  const templateId = Number(search.get('templateId')) || 1;
   const colors = ['#e8f0fe','#fce8e6','#e6f4ea','#e2e3e5','#fff3cd'];
-  const bgColor = colors[templateId - 1] || '#e8f0fe';               // ← 背景变色
+  const bgColor = colors[templateId - 1] || '#e8f0fe';
 
   const [form, setForm] = useState({
     firstName: ' ',
