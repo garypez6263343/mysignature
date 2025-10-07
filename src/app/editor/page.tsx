@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-// 上传组件
+// Image upload component
 function ImgbbUpload({ onUpload }: { onUpload: (url: string) => void }) {
   const [loading, setLoading] = useState(false);
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ function ImgbbUpload({ onUpload }: { onUpload: (url: string) => void }) {
   );
 }
 
-// 动态导入模板
+// Dynamic template loader
 const loadTemplate = (id: number) =>
   import(`@/templates/Template${String(id).padStart(2, '0')}.jsx`)
     .then((m) => m.default)
@@ -58,6 +58,7 @@ export default function Editor() {
     twitterURL: '',
   });
 
+  // Build final HTML
   const html = `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#000;background:${bgColor}">
     <tr>
       <td style="padding-right:12px;vertical-align:top">
@@ -73,9 +74,20 @@ export default function Editor() {
     </tr>
   </table>`;
 
+  // Listen for Gumroad "purchase" event → auto-redirect
+  useEffect(() => {
+    // @ts-ignore
+    if (window.Gumroad) {
+      // @ts-ignore
+      window.Gumroad.on('purchase', () => {
+        window.location.href = '/success';
+      });
+    }
+  }, []);
+
   return (
     <div style={{ display: 'flex', gap: 40, padding: 40 }}>
-      {/* 左：表单 */}
+      {/* Left: form */}
       <div style={{ flex: 1 }}>
         <h2>Signature Editor</h2>
         {Object.keys(form).map((k) => (
@@ -86,34 +98,30 @@ export default function Editor() {
               value={form[k as keyof typeof form]}
               onChange={(e) => setForm({ ...form, [k]: e.target.value })}
             />
-            {/* 图片上传仅对 photoURL 字段生效 */}
             {k === 'photoURL' && <ImgbbUpload onUpload={(url) => setForm({ ...form, photoURL: url })} />}
           </div>
         ))}
+
+        {/* Already-paid shortcut */}
+        {form.email && (
+          <a href="/success" style={{ fontSize: 12, color: '#1a73e8' }}>
+            Already paid? Click here →
+          </a>
+        )}
+
+        {/* Gumroad embedded button with callback → auto-redirect after purchase */}
         <button
-          style={{ marginTop: 16, padding: '8px 16px', fontSize: 16 }}
-          onClick={async () => {
-            localStorage.setItem('signatureHTML', html);
-            const res = await fetch('/api/save-user', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: form.email, signature: form }),
-            });
-            const json = await res.json();
-            if (json.error) return alert(json.error);
-            alert('User saved! ID: ' + json.userId);
-            window.open(
-              'https://lopezian316.gumroad.com/l/awhtj?email=' +
-                encodeURIComponent(form.email),
-              '_blank'
-            );
-          }}
+          className="gumroad-button"
+          data-gumroad-product-id="awhtj"
+          data-gumroad-email={form.email}
+          data-gumroad-callback="true"
+          style={{ marginTop: 16, padding: '8px 16px', fontSize: 16, background: '#1a73e8', color: '#fff', border: 0, borderRadius: 4 }}
         >
           Save & Buy - $9
         </button>
       </div>
 
-      {/* 右：实时预览 */}
+      {/* Right: live preview */}
       <div style={{ flex: 1 }}>
         <h2>Live Preview</h2>
         {Template ? <Template {...form} /> : <div>Loading template…</div>}
