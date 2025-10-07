@@ -38,19 +38,19 @@ export default function Template04({
               </a>
             </span>
 
-            {/* Social icons - visible on any background */}
+            {/* Social icons - centered white badge */}
             <span style={{ display: 'block', marginTop: 8 }}>
               {linkedInURL && (
                 <a href={linkedInURL} target="_blank" rel="noopener noreferrer" style={{ marginRight: 6 }}>
-                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#0077B5' }} />
+                  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, background: '#fff', borderRadius: 4 }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="14" height="14" style={{ fill: '#0077B5' }} />
                   </span>
                 </a>
               )}
               {twitterURL && (
                 <a href={twitterURL} target="_blank" rel="noopener noreferrer">
-                  <span style={{ display: 'inline-block', width: 20, height: 20, background: '#fff', borderRadius: 4, textAlign: 'center', lineHeight: '20px' }}>
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="14" height="14" style={{ verticalAlign: 'middle', fill: '#000' }} />
+                  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 20, height: 20, background: '#fff', borderRadius: 4, marginLeft: 4 }}>
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="X" width="14" height="14" style={{ fill: '#000' }} />
                   </span>
                 </a>
               )}
