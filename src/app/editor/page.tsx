@@ -11,6 +11,7 @@ function ImgbbUpload({ onUpload }: { onUpload: (url: string) => void }) {
     const body = new FormData();
     body.append('image', file);
     body.append('key', '8d0b10e79f4462558c6141db43090bad');
+    // 去掉 url 里的多余空格
     const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body });
     const json = await res.json();
     setLoading(false);
@@ -58,27 +59,11 @@ export default function Editor() {
     twitterURL: '',
   });
 
-  // Build final HTML
-  const html = `<table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px;color:#000;background:${bgColor}">
-    <tr>
-      <td style="padding-right:12px;vertical-align:top">
-        <img src="${form.photoURL || 'https://i.pravatar.cc/80?u=default'}" width="80" height="80" style="border-radius:50%"/>
-      </td>
-      <td style="vertical-align:top">
-        <strong style="color:#000">${form.firstName} ${form.lastName}</strong><br/>
-        <span style="color:#000">${form.jobTitle} · ${form.company}</span><br/>
-        <a href="mailto:${form.email}" style="color:#1a73e8">${form.email}</a>
-        ${form.phone ? ` · <a href="tel:${form.phone.replace(/\s/g, '')}" style="color:#1a73e8">${form.phone}</a>` : ''}
-        <br/><a href="${form.website}" target="_blank" rel="noopener noreferrer" style="color:#1a73e8">${form.website.replace(/^https?:\/\//, '')}</a>
-      </td>
-    </tr>
-  </table>`;
-
   // Listen for Gumroad "purchase" event → auto-redirect
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error Gumroad global
     if (window.Gumroad) {
-      // @ts-ignore
+      // @ts-expect-error Gumroad global
       window.Gumroad.on('purchase', () => {
         window.location.href = '/success';
       });
